@@ -43,11 +43,11 @@ module.exports = async (req, res) => {
       .maybeSingle();
 
     if (findError) {
-      console.error(findError);
+  console.error("SUPABASE FIND ERROR:", findError);
 
-      return res.status(500).json({
-        error: "Something went wrong. Please try again."
-      });
+  return res.status(500).json({
+    error: "Database error: " + findError.message
+  });
     }
 
     if (!codeRow) {
