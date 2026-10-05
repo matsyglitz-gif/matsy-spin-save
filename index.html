@@ -134,4 +134,207 @@
       left: 50%;
       transform: translate(-50%, -50%);
       display: flex;
-      align-items: center
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      font-size: 34px;
+      font-weight: bold;
+      color: #123d32;
+    }
+
+    .spin-button {
+      border: none;
+      background: #7d2634;
+      color: white;
+      padding: 15px 38px;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(125,38,52,.2);
+    }
+
+    .spin-button:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+    }
+
+    .message {
+      min-height: 24px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .result {
+      display: none;
+      background: white;
+      border: 1px solid #d8c8b3;
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 25px;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result h2 {
+      font-family: Georgia, serif;
+      color: #7d2634;
+      margin-top: 0;
+    }
+
+    .result-text {
+      font-size: 26px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .small {
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .footer {
+      margin-top: 35px;
+      font-size: 11px;
+      letter-spacing: 1px;
+      color: #6d665d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="logo">Matsy.glitz</div>
+
+    <div class="subtitle">CLEARANCE GAME</div>
+
+    <h1>SPIN & SAVE</h1>
+
+    <p class="intro">
+      Your favourite pieces. Now at even better prices.
+      Enter your unique code and see what you get. 👀
+    </p>
+
+    <div class="code-box">
+      <label for="code">ENTER YOUR UNIQUE CODE</label>
+      <input
+        id="code"
+        type="text"
+        placeholder="MATSY001"
+        maxlength="20"
+      >
+    </div>
+
+    <div class="wheel-wrap">
+
+      <div class="pointer"></div>
+
+      <div class="wheel" id="wheel"></div>
+
+    </div>
+
+    <button class="spin-button" id="spinButton" onclick="spin()">
+      SPIN NOW 🎡
+    </button>
+
+    <div class="message" id="message"></div>
+
+    <div class="result" id="result">
+
+      <h2>YOU GOT...</h2>
+
+      <div class="result-text" id="resultText"></div>
+
+      <p class="small">
+        Screenshot this result and send it to Matsy.glitz
+        on WhatsApp when placing your order.
+      </p>
+
+    </div>
+
+    <div class="footer">
+      ONE CUSTOMER • ONE SPIN • ONE CODE
+    </div>
+
+  </main>
+
+
+  <script>
+
+    const outcomes = [
+      "KSh 50 OFF",
+      "KSh 75 OFF",
+      "KSh 100 OFF",
+      "KSh 120 OFF",
+      "KSh 150 OFF",
+      "FREE GIFT",
+      "OOPS! GOOD LUCK NEXT TIME 😉"
+    ];
+
+    let spinning = false;
+    let rotation = 0;
+
+    function spin() {
+
+      if (spinning) return;
+
+      const code = document
+        .getElementById("code")
+        .value
+        .trim()
+        .toUpperCase();
+
+      const message = document.getElementById("message");
+
+      if (!code) {
+        message.textContent = "Please enter your unique code first. 💕";
+        return;
+      }
+
+      spinning = true;
+
+      document.getElementById("spinButton").disabled = true;
+      message.textContent = "Spinning... 👀";
+
+      /*
+        TEMPORARY RESULT SELECTION
+
+        We will replace this with the secure
+        Supabase/Vercel system next.
+      */
+
+      const resultIndex =
+        Math.floor(Math.random() * outcomes.length);
+
+      const segmentAngle = 360 / outcomes.length;
+
+      const targetAngle =
+        360 - (resultIndex * segmentAngle + segmentAngle / 2);
+
+      rotation += 360 * 6 + targetAngle;
+
+      document.getElementById("wheel").style.transform =
+        `rotate(${rotation}deg)`;
+
+      setTimeout(() => {
+
+        document.getElementById("resultText").textContent =
+          outcomes[resultIndex];
+
+        document.getElementById("result").classList.add("show");
+
+        message.textContent =
+          "That's your result! 🎉";
+
+      }, 4300);
+    }
+
+  </script>
+
+</body>
+</html>
