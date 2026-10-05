@@ -1,1 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <title>Matsy.glitz — Spin & Save</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f7f1e7;
+      color: #123d32;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 480px;
+      padding: 28px 18px 40px;
+      text-align: center;
+    }
+
+    .logo {
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: #7d2634;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-family: Georgia, serif;
+      font-size: 42px;
+      margin: 18px 0 5px;
+    }
+
+    .intro {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0 auto 24px;
+      max-width: 340px;
+    }
+
+    .code-box {
+      background: white;
+      padding: 18px;
+      border-radius: 18px;
+      box-shadow: 0 5px 20px rgba(18, 61, 50, 0.08);
+      margin-bottom: 25px;
+    }
+
+    .code-box label {
+      display: block;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+      margin-bottom: 9px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d6c8b5;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 16px;
+      text-transform: uppercase;
+      outline: none;
+    }
+
+    .wheel-wrap {
+      position: relative;
+      width: min(86vw, 350px);
+      height: min(86vw, 350px);
+      margin: 20px auto 25px;
+    }
+
+    .pointer {
+      position: absolute;
+      z-index: 5;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 30px solid #7d2634;
+    }
+
+    .wheel {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 8px solid #b08a4a;
+      background:
+        conic-gradient(
+          #123d32 0deg 51.43deg,
+          #e9c8c7 51.43deg 102.86deg,
+          #7d2634 102.86deg 154.29deg,
+          #f7dca8 154.29deg 205.72deg,
+          #123d32 205.72deg 257.15deg,
+          #e9c8c7 257.15deg 308.58deg,
+          #7d2634 308.58deg 360deg
+        );
+      position: relative;
+      transition: transform 4s cubic-bezier(.17,.67,.12,.99);
+      box-shadow: 0 10px 30px rgba(18,61,50,.15);
+    }
+
+    .wheel::after {
+      content: "M";
+      position: absolute;
+      width: 72px;
+      height: 72px;
+      background: #f7f1e7;
+      border: 4px solid #b08a4a;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center
