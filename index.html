@@ -6,7 +6,13 @@
 
   <title>Matsy.glitz — Spin & Save</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+
     * {
       box-sizing: border-box;
     }
@@ -16,7 +22,7 @@
       min-height: 100vh;
       background: #f7f1e7;
       color: #123d32;
-      font-family: Arial, sans-serif;
+      font-family: "DM Sans", sans-serif;
       display: flex;
       justify-content: center;
     }
@@ -24,82 +30,101 @@
     .page {
       width: 100%;
       max-width: 480px;
-      padding: 28px 18px 40px;
+      padding: 28px 18px 45px;
       text-align: center;
     }
 
     .logo {
-      font-family: Georgia, serif;
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 8px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      margin-bottom: 3px;
     }
 
     .subtitle {
       color: #7d2634;
-      font-size: 12px;
-      letter-spacing: 2px;
-      font-weight: bold;
+      font-size: 10px;
+      letter-spacing: 3px;
+      font-weight: 700;
+      text-transform: uppercase;
     }
 
     h1 {
-      font-family: Georgia, serif;
-      font-size: 42px;
-      margin: 18px 0 5px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 56px;
+      line-height: .9;
+      font-weight: 600;
+      letter-spacing: -1.5px;
+      margin: 20px 0 9px;
     }
 
     .intro {
-      font-size: 14px;
-      line-height: 1.5;
-      margin: 0 auto 24px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0 auto 25px;
       max-width: 340px;
+      color: #31554d;
     }
 
     .code-box {
-      background: white;
-      padding: 18px;
-      border-radius: 18px;
-      box-shadow: 0 5px 20px rgba(18, 61, 50, 0.08);
-      margin-bottom: 25px;
+      background: rgba(255,255,255,.88);
+      padding: 19px;
+      border-radius: 20px;
+      box-shadow: 0 8px 28px rgba(18, 61, 50, 0.08);
+      margin-bottom: 27px;
+      border: 1px solid rgba(176,138,74,.18);
     }
 
     .code-box label {
       display: block;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 1px;
-      margin-bottom: 9px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      margin-bottom: 10px;
+      color: #7d2634;
     }
 
     input {
       width: 100%;
       padding: 14px;
       border: 1px solid #d6c8b5;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: center;
-      font-size: 16px;
+      font-family: "DM Sans", sans-serif;
+      font-size: 15px;
+      letter-spacing: 1px;
       text-transform: uppercase;
       outline: none;
+      color: #123d32;
+      background: #fff;
+    }
+
+    input:focus {
+      border-color: #b08a4a;
+      box-shadow: 0 0 0 3px rgba(176,138,74,.12);
     }
 
     .wheel-wrap {
       position: relative;
       width: min(86vw, 350px);
       height: min(86vw, 350px);
-      margin: 20px auto 25px;
+      margin: 22px auto 27px;
     }
 
     .pointer {
       position: absolute;
-      z-index: 5;
-      top: -8px;
+      z-index: 20;
+      top: -9px;
       left: 50%;
       transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-left: 15px solid transparent;
-      border-right: 15px solid transparent;
-      border-top: 30px solid #7d2634;
+      border-left: 16px solid transparent;
+      border-right: 16px solid transparent;
+      border-top: 32px solid #7d2634;
+      filter: drop-shadow(0 3px 3px rgba(0,0,0,.15));
     }
 
     .wheel {
@@ -107,6 +132,7 @@
       height: 100%;
       border-radius: 50%;
       border: 8px solid #b08a4a;
+
       background:
         conic-gradient(
           #123d32 0deg 51.43deg,
@@ -117,28 +143,124 @@
           #e9c8c7 257.15deg 308.58deg,
           #7d2634 308.58deg 360deg
         );
+
       position: relative;
       transition: transform 4s cubic-bezier(.17,.67,.12,.99);
-      box-shadow: 0 10px 30px rgba(18,61,50,.15);
+      box-shadow:
+        0 12px 35px rgba(18,61,50,.16),
+        inset 0 0 0 2px rgba(255,255,255,.18);
+
+      overflow: hidden;
+    }
+
+    .wheel-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 125px;
+      margin-left: -62.5px;
+      margin-top: -13px;
+
+      text-align: center;
+
+      font-family: "Cormorant Garamond", serif;
+      font-size: 18px;
+      line-height: .92;
+      font-weight: 700;
+      letter-spacing: .2px;
+
+      color: white;
+      text-shadow: 0 1px 3px rgba(0,0,0,.4);
+
+      pointer-events: none;
+    }
+
+    .wheel-label span {
+      display: block;
+    }
+
+    .label-1 {
+      transform:
+        rotate(25.7deg)
+        translateY(-105px)
+        rotate(-25.7deg);
+    }
+
+    .label-2 {
+      transform:
+        rotate(77.1deg)
+        translateY(-105px)
+        rotate(-77.1deg);
+
+      color: #123d32;
+      text-shadow: none;
+    }
+
+    .label-3 {
+      transform:
+        rotate(128.6deg)
+        translateY(-105px)
+        rotate(-128.6deg);
+    }
+
+    .label-4 {
+      transform:
+        rotate(180deg)
+        translateY(-105px)
+        rotate(-180deg);
+
+      color: #123d32;
+      text-shadow: none;
+    }
+
+    .label-5 {
+      transform:
+        rotate(231.4deg)
+        translateY(-105px)
+        rotate(-231.4deg);
+    }
+
+    .label-6 {
+      transform:
+        rotate(282.9deg)
+        translateY(-105px)
+        rotate(-282.9deg);
+
+      color: #123d32;
+      text-shadow: none;
+    }
+
+    .label-7 {
+      transform:
+        rotate(334.3deg)
+        translateY(-105px)
+        rotate(-334.3deg);
     }
 
     .wheel::after {
       content: "M";
       position: absolute;
+      z-index: 10;
+
       width: 72px;
       height: 72px;
+
       background: #f7f1e7;
       border: 4px solid #b08a4a;
       border-radius: 50%;
+
       top: 50%;
       left: 50%;
+
       transform: translate(-50%, -50%);
+
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: Georgia, serif;
-      font-size: 34px;
-      font-weight: bold;
+
+      font-family: "Cormorant Garamond", serif;
+      font-size: 38px;
+      font-weight: 700;
       color: #123d32;
     }
 
@@ -146,13 +268,25 @@
       border: none;
       background: #7d2634;
       color: white;
-      padding: 15px 38px;
+
+      padding: 15px 40px;
       border-radius: 30px;
-      font-size: 16px;
-      font-weight: bold;
-      letter-spacing: 1px;
+
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.4px;
+
       cursor: pointer;
-      box-shadow: 0 5px 15px rgba(125,38,52,.2);
+
+      box-shadow:
+        0 6px 18px rgba(125,38,52,.22);
+
+      transition: transform .2s ease;
+    }
+
+    .spin-button:active {
+      transform: scale(.97);
     }
 
     .spin-button:disabled {
@@ -163,16 +297,21 @@
     .message {
       min-height: 24px;
       margin-top: 15px;
-      font-size: 13px;
+      font-size: 12px;
+      color: #31554d;
     }
 
     .result {
       display: none;
+
       background: white;
       border: 1px solid #d8c8b3;
-      border-radius: 18px;
-      padding: 22px;
+      border-radius: 20px;
+
+      padding: 24px;
       margin-top: 25px;
+
+      box-shadow: 0 8px 25px rgba(18,61,50,.07);
     }
 
     .result.show {
@@ -180,28 +319,34 @@
     }
 
     .result h2 {
-      font-family: Georgia, serif;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 30px;
+      font-weight: 600;
       color: #7d2634;
-      margin-top: 0;
+      margin: 0 0 8px;
     }
 
     .result-text {
-      font-size: 26px;
-      font-weight: bold;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 31px;
+      font-weight: 700;
       margin: 12px 0;
+      color: #123d32;
     }
 
     .small {
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11px;
+      line-height: 1.6;
+      color: #6d665d;
     }
 
     .footer {
       margin-top: 35px;
-      font-size: 11px;
-      letter-spacing: 1px;
-      color: #6d665d;
+      font-size: 9px;
+      letter-spacing: 1.7px;
+      color: #8a8278;
     }
+
   </style>
 </head>
 
@@ -211,7 +356,7 @@
 
     <div class="logo">Matsy.glitz</div>
 
-    <div class="subtitle">CLEARANCE GAME</div>
+    <div class="subtitle">Clearance Game</div>
 
     <h1>SPIN & SAVE</h1>
 
@@ -221,34 +366,84 @@
     </p>
 
     <div class="code-box">
-      <label for="code">ENTER YOUR UNIQUE CODE</label>
+
+      <label for="code">
+        ENTER YOUR UNIQUE CODE
+      </label>
+
       <input
         id="code"
         type="text"
-        placeholder="MATSY001"
+        placeholder=""
         maxlength="20"
+        autocomplete="off"
+        spellcheck="false"
       >
+
     </div>
 
     <div class="wheel-wrap">
 
       <div class="pointer"></div>
 
-      <div class="wheel" id="wheel"></div>
+      <div class="wheel" id="wheel">
+
+        <div class="wheel-label label-1">
+          <span>KSh 50 OFF</span>
+        </div>
+
+        <div class="wheel-label label-2">
+          <span>KSh 75 OFF</span>
+        </div>
+
+        <div class="wheel-label label-3">
+          <span>KSh 85 OFF</span>
+        </div>
+
+        <div class="wheel-label label-4">
+          <span>KSh 100 OFF</span>
+        </div>
+
+        <div class="wheel-label label-5">
+          <span>KSh 150 OFF</span>
+        </div>
+
+        <div class="wheel-label label-6">
+          <span>FREE<br>DELIVERY</span>
+        </div>
+
+        <div class="wheel-label label-7">
+          <span>SORRY,<br>NEXT TIME</span>
+        </div>
+
+      </div>
 
     </div>
 
-    <button class="spin-button" id="spinButton" onclick="spin()">
+    <button
+      class="spin-button"
+      id="spinButton"
+      onclick="spin()"
+    >
       SPIN NOW 🎡
     </button>
 
-    <div class="message" id="message"></div>
+    <div
+      class="message"
+      id="message"
+    ></div>
 
-    <div class="result" id="result">
+    <div
+      class="result"
+      id="result"
+    >
 
       <h2>YOU GOT...</h2>
 
-      <div class="result-text" id="resultText"></div>
+      <div
+        class="result-text"
+        id="resultText"
+      ></div>
 
       <p class="small">
         Screenshot this result and send it to Matsy.glitz
@@ -269,17 +464,17 @@
     const outcomes = [
       "KSh 50 OFF",
       "KSh 75 OFF",
+      "KSh 85 OFF",
       "KSh 100 OFF",
-      "KSh 120 OFF",
       "KSh 150 OFF",
-      "FREE GIFT",
-      "OOPS! GOOD LUCK NEXT TIME 😉"
+      "FREE DELIVERY",
+      "SORRY, NEXT TIME"
     ];
 
     let spinning = false;
     let rotation = 0;
 
-    function spin() {
+    async function spin() {
 
       if (spinning) return;
 
@@ -289,49 +484,119 @@
         .trim()
         .toUpperCase();
 
-      const message = document.getElementById("message");
+      const message =
+        document.getElementById("message");
+
+      const button =
+        document.getElementById("spinButton");
 
       if (!code) {
-        message.textContent = "Please enter your unique code first. 💕";
+
+        message.textContent =
+          "Please enter your unique code first. 💕";
+
         return;
       }
 
       spinning = true;
+      button.disabled = true;
 
-      document.getElementById("spinButton").disabled = true;
-      message.textContent = "Spinning... 👀";
+      message.textContent =
+        "Checking your code... 👀";
 
-      /*
-        TEMPORARY RESULT SELECTION
+      try {
 
-        We will replace this with the secure
-        Supabase/Vercel system next.
-      */
+        const response = await fetch(
+          "/api/spin",
+          {
+            method: "POST",
 
-      const resultIndex =
-        Math.floor(Math.random() * outcomes.length);
+            headers: {
+              "Content-Type": "application/json"
+            },
 
-      const segmentAngle = 360 / outcomes.length;
+            body: JSON.stringify({
+              code: code
+            })
+          }
+        );
 
-      const targetAngle =
-        360 - (resultIndex * segmentAngle + segmentAngle / 2);
+        const data =
+          await response.json();
 
-      rotation += 360 * 6 + targetAngle;
+        if (!response.ok) {
 
-      document.getElementById("wheel").style.transform =
-        `rotate(${rotation}deg)`;
+          message.textContent =
+            data.error ||
+            "Something went wrong. Please try again.";
 
-      setTimeout(() => {
+          spinning = false;
+          button.disabled = false;
 
-        document.getElementById("resultText").textContent =
-          outcomes[resultIndex];
+          return;
+        }
 
-        document.getElementById("result").classList.add("show");
+        const resultIndex =
+          Number(data.resultId);
+
+        const segmentAngle =
+          360 / outcomes.length;
+
+        const targetAngle =
+          360 -
+          (
+            resultIndex * segmentAngle +
+            segmentAngle / 2
+          );
+
+        const currentRotation =
+          ((rotation % 360) + 360) % 360;
+
+        const extraRotation =
+          (
+            targetAngle -
+            currentRotation +
+            360
+          ) % 360;
+
+        rotation +=
+          (360 * 6) +
+          extraRotation;
+
+        document
+          .getElementById("wheel")
+          .style.transform =
+          `rotate(${rotation}deg)`;
 
         message.textContent =
-          "That's your result! 🎉";
+          "Spinning... 👀";
 
-      }, 4300);
+        setTimeout(() => {
+
+          document
+            .getElementById("resultText")
+            .textContent =
+            data.result;
+
+          document
+            .getElementById("result")
+            .classList.add("show");
+
+          message.textContent =
+            "That's your result! 🎉";
+
+        }, 4300);
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          "Something went wrong. Please try again.";
+
+        spinning = false;
+        button.disabled = false;
+      }
     }
 
   </script>
