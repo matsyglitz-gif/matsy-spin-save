@@ -75,11 +75,11 @@ module.exports = async (req, res) => {
         .select("id");
 
     if (updateError) {
-      console.error(updateError);
+  console.error("SUPABASE UPDATE ERROR:", updateError);
 
-      return res.status(500).json({
-        error: "Could not complete the spin."
-      });
+  return res.status(500).json({
+    error: "Database update error: " + updateError.message
+  });
     }
 
     if (!updatedRows || updatedRows.length !== 1) {
