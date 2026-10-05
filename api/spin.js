@@ -8,11 +8,11 @@ const supabase = createClient(
 const outcomes = [
   "KSh 50 OFF",
   "KSh 75 OFF",
+  "KSh 85 OFF",
   "KSh 100 OFF",
-  "KSh 125 OFF",
   "KSh 150 OFF",
   "FREE DELIVERY",
-  "OOPS! TRY AGAIN"
+  "SORRY, NEXT TIME"
 ];
 
 module.exports = async (req, res) => {
@@ -35,7 +35,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    // Check that the code exists and has not been used
     const { data: codeRow, error: findError } = await supabase
       .from("spin_codes")
       .select("id, code, status")
@@ -57,22 +56,23 @@ module.exports = async (req, res) => {
       });
     }
 
-    // Randomly choose the prize
-    const resultId = Math.floor(Math.random() * outcomes.length);
+    const resultId =
+      Math.floor(Math.random() * outcomes.length);
+
     const result = outcomes[resultId];
 
-    // Claim the code
-    const { data: updatedRows, error: updateError } = await supabase
-      .from("spin_codes")
-      .update({
-        status: "used",
-        result: result,
-        result_id: String(resultId),
-        used_at: new Date().toISOString()
-      })
-      .eq("id", codeRow.id)
-      .eq("status", "unused")
-      .select("id");
+    const { data: updatedRows, error: updateError } =
+      await supabase
+        .from("spin_codes")
+        .update({
+          status: "used",
+          result: result,
+          result_id: String(resultId),
+          used_at: new Date().toISOString()
+        })
+        .eq("id", codeRow.id)
+        .eq("status", "unused")
+        .select("id");
 
     if (updateError) {
       console.error(updateError);
@@ -82,7 +82,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    // Protect against two people trying the same code
     if (!updatedRows || updatedRows.length !== 1) {
       return res.status(409).json({
         error: "This code has already been used."
